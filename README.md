@@ -16,6 +16,6 @@ To run this program, you need to install the python-chess library:
  
  ## License
  
- This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) fiel for details
+ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) fiel for details
  
  ## Acknowledgments
