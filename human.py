@@ -5,17 +5,19 @@ class human:
         self.get_side()
         
     def get_side(self):
-        self.white = None
-        while self.white is None:
-            print("Do you wish to play as white ? (y or n)")
-            answer = input()
-            
-            if answer == "y":
-                self.white = True
-            elif answer == "n":
-                self.white = False
-            else:
-                print("Please enter 'y' or 'n'")
+#        self.white = None
+#        while self.white is None:
+#            print("Do you wish to play as white ? (y or n)")
+#            answer = input()
+#
+#            if answer == "y":
+#                self.white = True
+#            elif answer == "n":
+#                self.white = False
+#            else:
+#                print("Please enter 'y' or 'n'")
+        # Temporarily keep human white for sake of ai simplicity
+        self.white = True
                 
     def make_move(self, game):
         
