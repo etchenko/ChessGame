@@ -1,5 +1,6 @@
 import chess
 from human import human
+import random
 
 # Push and pop all the moves on the same board not to create more
 # Implement simple minimax algorithm at first
@@ -8,7 +9,7 @@ from human import human
 
 class ai:
     def __init__(self):
-        self.max_depth = 4
+        self.max_depth = 3
         
         
         
@@ -34,15 +35,6 @@ class ai:
         
     def move_value(self, game, depth):
         # Finds the inherent value of the move just played
-        
-#        if terminal state
-#            return utility of game state
-#        elif depth reached
-#            return evaluation
-#        else if max needs to move
-#            return highest minimax value of successor
-#        else if min needs to move
-#            return lowest minimax value of successor
         value = 0
 
         if game.is_game_over():
@@ -76,7 +68,7 @@ class ai:
             
     def evaluation(self, game):
         # Evaluates the current game state, from -9999 to 9999
-        eval = 0
+        eval = random.random()
         for (piece, value) in [(chess.PAWN, 1),
                                (chess.BISHOP, 4),
                                (chess.KING, 0),
