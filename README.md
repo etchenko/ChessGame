@@ -1,2 +1,2 @@
 # ChessGame
-Creating a chess AI from scratch (without using chess packages) in python
+Creating a chess AI (using the python-chess library) in python
