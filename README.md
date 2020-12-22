@@ -9,3 +9,13 @@ To run this program, you need to install the python-chess library:
  ```
  pip3 install python-chess
  ```
+ 
+ ## Author
+ 
+ Elijah Tamarchenko
+ 
+ ## License
+ 
+ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) fiel for details
+ 
+ ## Acknowledgments
