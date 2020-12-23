@@ -2,10 +2,10 @@ import chess
 from human import human
 import random
 
-# Push and pop all the moves on the same board not to create more
-# Implement simple minimax algorithm at first
-# Create an arbitrary cutoff for depth searched
-# Figure out an evaluation function
+# Iterative Deepening
+# Quiescence Search
+# Alpha Beta Pruning
+# Zobrist Hashing
 
 class ai:
     def __init__(self):
@@ -39,7 +39,9 @@ class ai:
 
         if game.is_game_over():
             value =  9999 if game.turn else -9999
-        elif depth == self.max_depth:
+        elif depth >= self.max_depth and not game.is_check():
+            '''Add Quiescence Search'''
+                
             value = self.evaluation(game)
         elif game.turn:
             # White to play
