@@ -15,7 +15,7 @@ To run this program, call the following command:
 ```
 python runGame.py
 ```
-The console will prompt you for a move, which should be entered in the UCI format, ex. a2a4, or b2c4 (In case of pawn promotion, type the lowercase letter of the piece you which to promote to after the move (i.e. a7a8q for queen)
+The console will prompt you for a move, which should be entered in the UCI format, ex. a2a4, or b2c4 (In case of pawn promotion, type the lowercase letter of the piece you wish to promote to after the move (i.e. a7a8q for queen)
 
 ## Implementation
 
