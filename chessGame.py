@@ -4,6 +4,7 @@ class chessGame:
 
     def __init__(self, humanWhite, human, ai):
         self.game = chess.Board()
+        self.humanWhite = humanWhite
         self.players = [human, ai] if humanWhite else [ai, human]
         
     def runGame(self):
@@ -13,6 +14,8 @@ class chessGame:
         
     def make_move(self):
         move = self.players[0 if self.game.turn else 1].make_move(self.game)
+        if self.game.turn != self.humanWhite:
+            print("Computer chose " + str(move))
         self.game.push(move)  # Make the move
 
     def __str__(self):
