@@ -1,32 +1,44 @@
 import chess
 from human import human
 import random
+import time
 
 # Same as ai, but make move within method
-class ai2:
+class ai3:
     def __init__(self):
         self.max_depth = 2
-        self.max_q = 5
+        self.time_limit = 5
         
     def make_move(self, game):
+        start = time.time()
+        self.distance = 1
+        self.max_q = 4
+        while time.time() < start + self.time_limit:
+            move = self.iterative_root(game, start + self.time_limit)
+            self.distance += 1
+            self.max_q += 1
+        return move
+        
+        
+    def iterative_root(self, game, time):
         moves = list(game.legal_moves)
-        max = [10000,0]
+        max = [-10000, 0]
         for i in range(len(moves)):
             value = self.move_value(game, -10000, 10000, 1, moves[i])
-            if value < max[0]:
+            if value > max[0]:
                 max[0] = value
                 max[1] = moves[i]
         return max[1]
-    
+        
+        
     def move_value(self, game, alpha, beta, depth, move):
         value = 0
         if depth > self.max_q:
             value = self.eval(game)
         elif depth > self.max_depth and not game.gives_check(move) and not game.is_capture(move) and not game.is_check():
-            value = self.eval(game)
+                value = self.eval(game)
         else:
             game.push(move)
-            
             if game.is_game_over():
                 if game.is_checkmate():
                     value = 9999 if game.turn else -9999
@@ -47,8 +59,8 @@ class ai2:
             if beta <= alpha:
                 break
         return min_val
-        
-    
+
+
     def max_val(self, game, alpha, beta, depth, move):
         max_val = -10000
         moves = list(game.legal_moves)
@@ -59,7 +71,7 @@ class ai2:
             if beta <= alpha:
                 break
         return max_val
-    
+
     def eval(self, game):
         # Evalutes the current game state, from -9999 to 9999
         eval = random.random()
@@ -72,7 +84,7 @@ class ai2:
             eval += len(game.pieces(piece, False)) * value
             eval -= len(game.pieces(piece, True)) * value
             # can also check things about the pieces position here
-            
+
         return eval
         
     def min(one, two):
@@ -80,3 +92,4 @@ class ai2:
         
     def max(one, two):
         return one if one > two else two
+

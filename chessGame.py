@@ -11,6 +11,7 @@ class chessGame:
         while not self.game.is_game_over():
             print(self)
             self.make_move()
+        print(self.game.turn)
         
     def make_move(self):
         move = self.players[0 if self.game.turn else 1].make_move(self.game)
