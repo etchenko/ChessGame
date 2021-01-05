@@ -1,4 +1,5 @@
 import chess
+import time
 
 class chessGame:
 
@@ -6,15 +7,20 @@ class chessGame:
         self.game = chess.Board()
         self.humanWhite = humanWhite
         self.players = [human, ai] if humanWhite else [ai, human]
+        self.times = [0, 0]
         
     def runGame(self):
         while not self.game.is_game_over():
             print(self)
+            print(self.times)
             self.make_move()
         print(self.game.turn)
         
     def make_move(self):
+        time1 = time.time()
         move = self.players[0 if self.game.turn else 1].make_move(self.game)
+        time2 = time.time() - time1
+        self.times[0 if self.game.turn else 1] += time2
         if self.game.turn != self.humanWhite:
             print("Computer chose " + str(move))
         self.game.push(move)  # Make the move

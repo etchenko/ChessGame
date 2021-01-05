@@ -4,19 +4,21 @@ import random
 
 # Same as ai, but make move within method
 class ai2:
-    def __init__(self):
+    def __init__(self, color):
         self.max_depth = 2
         self.max_q = 5
+        self.color = color
         
     def make_move(self, game):
         moves = list(game.legal_moves)
-        max = [10000,0]
+        max = [-10000 if self.color == 1 else 10000,0]
         for i in range(len(moves)):
             value = self.move_value(game, -10000, 10000, 1, moves[i])
-            if value < max[0]:
+            if (self.color == 1 and value > max[0]) or (self.color == 0 and value < max[0]):
                 max[0] = value
                 max[1] = moves[i]
         return max[1]
+        
     
     def move_value(self, game, alpha, beta, depth, move):
         value = 0
@@ -67,8 +69,8 @@ class ai2:
                                (chess.BISHOP, 3),
                                (chess.KING, 0),
                                (chess.QUEEN, 9),
-                               (chess.KNIGHT, 5),
-                               (chess.ROOK, 3)]:
+                               (chess.KNIGHT, 3),
+                               (chess.ROOK, 5)]:
             eval += len(game.pieces(piece, False)) * value
             eval -= len(game.pieces(piece, True)) * value
             # can also check things about the pieces position here

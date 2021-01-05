@@ -1,5 +1,5 @@
 class table(object):
-    def __init__(self, length = 10):
+    def __init__(self, length = 10000000):
         self.array = [None] * length
         
     def hash(self, key):
@@ -11,9 +11,9 @@ class table(object):
         # Add the item to the hashtable if not already present
         index = self.hash(key)
         if self.array[index] is not None:
-            for kvp in self.array[index]:
-                if kvp[0] == key:
-                    kvp[1] = value
+            for i in range(len(self.array[index])):
+                if self.array[index][i][0] == key:
+                    self.array[index][i][1] = value
                     break
             else:
                 self.array[index].append([key, value])
@@ -25,21 +25,10 @@ class table(object):
         # Get the item from the hashtable
         index = self.hash(key)
         if self.array[index] is None:
-            raise KeyError()
+            return None
         else:
             for kvp in self.array[index]:
                 if kvp[0] == key:
                     return kvp[1]
             
-            raise KeyError()
-    
-class item:
-    def __init__(self, eval, depth):
-        self.eval = eval
-        self.depth = depth
-        
-    def get_depth(self):
-        return self.depth
-    
-    def get_eval(self):
-        return self.eval
+            return None

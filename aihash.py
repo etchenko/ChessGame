@@ -1,13 +1,15 @@
 import chess
-from human import human
 import random
+from table import table
+from item import item
 
 # Same as ai, but make move within method
 class aihash:
     def __init__(self):
         self.max_depth = 2
-        self.max_q = 5
+        self.max_q = 7
         self.rand = [round(random.random()*10000000000000000) for i in range(768)]
+        #self.table = table()
         # Pawns 0 & 6
         # Knight 1 & 7
         # Bishop 2 & 8
@@ -17,11 +19,13 @@ class aihash:
         
     def make_move(self, game):
         moves = list(game.legal_moves)
-        max = [-10000,0]
+        max = [10000,0]
         hash = self.get_hashkey(game)
+        self.table = table()
+        self.count = game.fullmove_number
         for i in range(len(moves)):
             value = self.move_value(game, -10000, 10000, 1, moves[i], hash)
-            if value > max[0]:
+            if value < max[0]:
                 max[0] = value
                 max[1] = moves[i]
         return max[1]
@@ -29,6 +33,11 @@ class aihash:
     def move_value(self, game, alpha, beta, depth, move, hash):
         value = 0
         hash = self.mod_hashkey(hash, move, game)
+        last = self.table.get(hash)
+        if last is not None:
+            if last.depth >= self.distance:
+                return last.eval
+            
         if depth > self.max_q:
             value = self.eval(game)
         elif depth > self.max_depth and not game.gives_check(move) and not game.is_capture(move) and not game.is_check():
@@ -44,6 +53,8 @@ class aihash:
             else:
                 value = self.max_val(game, alpha, beta, depth, move, hash)
             game.pop()
+        board = item(value, self.distance, self.count)
+        self.table.add(hash, board)
         return value
         
     def min_val(self, game, alpha, beta, depth, move, hash):
@@ -75,7 +86,7 @@ class aihash:
         for  (piece, value) in [(chess.PAWN, 1),
                                (chess.BISHOP, 3),
                                (chess.KING, 0),
-                               (chess.QUEEN, 9),
+                               (chess.QUEEN, 10),
                                (chess.KNIGHT, 5),
                                (chess.ROOK, 3)]:
             eval += len(game.pieces(piece, False)) * value
